@@ -7,6 +7,7 @@ class BaseModel(models.Model):
 
     name = models.CharField(max_length=150, verbose_name='Nombre')
     description = models.CharField(max_length=150, verbose_name='Descripcion')
+    state = models.BooleanField(default=True,verbose_name='Estado')
     
     class Meta:
         abstract = True
