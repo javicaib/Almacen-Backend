@@ -41,7 +41,7 @@ THIRDY_APPS = [
 ]
 
 APPS = [
-    
+    'Products'
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRDY_APPS + APPS
