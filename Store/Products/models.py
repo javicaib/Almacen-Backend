@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db import models
 
 # Create your models here.
@@ -20,11 +21,16 @@ MEASURE_CHOICES = [
     ('P','Paquete')
 ]
 
+class Category (BaseModel):
+    category_id = models.AutoField(primary_key=True)
+    
+
 class Product(BaseModel):
 
     purchase_price = models.FloatField(verbose_name='Precio de Compra')
     sale_price = models.FloatField(verbose_name='Precio de Venta')
     measure_unit = models.CharField(verbose_name='Unidad de Medida',choices=MEASURE_CHOICES,max_length=50)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Producto'

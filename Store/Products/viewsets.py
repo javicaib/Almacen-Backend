@@ -1,8 +1,10 @@
+from unicodedata import category
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from .models import Product
-from .serializer import ProductSerializer
+from .serializer import ProductSerializer,CategorySerializer
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -43,3 +45,18 @@ class ProductViewSet(viewsets.ModelViewSet):
             product.save()
             return  Response({'message': 'Producto eliminado correctamente'}, status=status.HTTP_200_OK)
         return Response({'error': 'No se encuentra el producto'},status=status.HTTP_400_BAD_REQUEST)    
+    
+    @action(detail=True, methods=['GET'], name='Get Products by Category')
+    def product_by_category(self,request,pk=None):
+        queryset = Product.objects.filter(category = pk)
+        serializer = self.get_serializer(queryset, many=True) 
+        if len(serializer.data) == 0:
+            return Response({'message': 'No hay productos en con el id de la categoria proporcionada'})
+        return Response(serializer.data)    
+
+class CategoryViewSet(viewsets.ModelViewSet):
+
+    queryset = Product.objects.filter(state=True)
+    serializer_class = CategorySerializer     
+
+  
