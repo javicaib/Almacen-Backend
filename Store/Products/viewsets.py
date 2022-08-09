@@ -46,7 +46,7 @@ class ProductViewSet(viewsets.ModelViewSet):
             return  Response({'message': 'Producto eliminado correctamente'}, status=status.HTTP_200_OK)
         return Response({'error': 'No se encuentra el producto'},status=status.HTTP_400_BAD_REQUEST)    
     
-    @action(detail=True, methods=['GET'], name='Get Products by Category')
+    
     def product_by_category(self,request,pk=None):
         queryset = Product.objects.filter(category = pk)
         serializer = self.get_serializer(queryset, many=True) 
