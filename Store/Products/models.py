@@ -1,4 +1,4 @@
-from unicodedata import category
+from turtle import update
 from django.db import models
 
 # Create your models here.
@@ -7,8 +7,10 @@ from django.db import models
 class BaseModel(models.Model):
 
     name = models.CharField(max_length=150, verbose_name='Nombre')
-    description = models.CharField(max_length=150, verbose_name='Descripcion')
     state = models.BooleanField(default=True,verbose_name='Estado')
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    
     
     class Meta:
         abstract = True
@@ -27,6 +29,7 @@ class Category (BaseModel):
 
 class Product(BaseModel):
 
+    description = models.CharField(max_length=150, verbose_name='Descripcion')
     purchase_price = models.FloatField(verbose_name='Precio de Compra')
     sale_price = models.FloatField(verbose_name='Precio de Venta')
     measure_unit = models.CharField(verbose_name='Unidad de Medida',choices=MEASURE_CHOICES,max_length=50)
