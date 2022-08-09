@@ -30,7 +30,7 @@ class Product(BaseModel):
     purchase_price = models.FloatField(verbose_name='Precio de Compra')
     sale_price = models.FloatField(verbose_name='Precio de Venta')
     measure_unit = models.CharField(verbose_name='Unidad de Medida',choices=MEASURE_CHOICES,max_length=50)
-    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE,verbose_name='Categoria',blank=True)
 
     class Meta:
         verbose_name = 'Producto'
